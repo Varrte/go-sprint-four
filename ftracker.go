@@ -2,6 +2,7 @@ package ftracker
 
 import (
 	"fmt"
+	"math"
 )
 
 // Основные константы, необходимые для расчетов.
@@ -83,7 +84,7 @@ func RunningSpentCalories(action int, weight, duration float64) float64 {
 	// ваш код здесь
 
 	//Расход калорий при беге
-	return ((18 * meanSpeed(action, duration) * 1.79) * weight / mInKM * duration * minInH)
+	return ((18 * meanSpeed(action, duration) * 1.79) * weight / mInKm * duration * minInH)
 }
 
 // Константы для расчета калорий, расходуемых при ходьбе.
@@ -104,7 +105,7 @@ func WalkingSpentCalories(action int, duration, weight, height float64) float64 
 	// ваш код здесь
 
 	//Расход калорий при ходьбе. Так как в формуле скорость в м/с, то нам нужно перевести значение полученное от функции meanSpeed из км/ч в м/с
-	return ((0.035*weight + (Pow(meanSpeed(action, duration)/3, 6)/height)*0.029*weight) * duration * minInH)
+	return ((0.035*weight + (math.Pow((meanSpeed(action, duration)/3.6), 2)/height)*0.029*weight) * duration * minInH)
 }
 
 // Константы для расчета калорий, расходуемых при плавании.
