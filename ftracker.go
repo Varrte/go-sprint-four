@@ -103,9 +103,10 @@ const (
 // height float64 — рост пользователя.
 func WalkingSpentCalories(action int, duration, weight, height float64) float64 {
 	// ваш код здесь
+	speedInM := meanSpeed(action, duration) * kmhInMsec
+	walkCalories := ((0.035*weight + (math.Pow(speedInM, float64(2.0))/height)*0.029*weight) * duration * minInH)
 
-	//Расход калорий при ходьбе. Так как в формуле скорость в м/с, то нам нужно перевести значение полученное от функции meanSpeed из км/ч в м/с
-	return ((0.035*weight + (math.Pow((meanSpeed(action, duration)/3.6), 2)/height)*0.029*weight) * duration * minInH)
+	return walkCalories
 }
 
 // Константы для расчета калорий, расходуемых при плавании.
@@ -125,7 +126,7 @@ func swimmingMeanSpeed(lengthPool, countPool int, duration float64) float64 {
 	if duration == 0 {
 		return 0
 	}
-	return float64(lengthPool) * float64(countPool) / mInKm / duration
+	return (float64(lengthPool)) * float64(countPool) / mInKm / duration
 }
 
 // SwimmingSpentCalories возвращает количество потраченных калорий при плавании.
